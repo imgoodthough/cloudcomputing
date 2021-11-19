@@ -50,7 +50,7 @@ public class bikepublisher {
 			parkingBikeTotCnt = Integer.parseInt(rowinfo.get("parkingBikeTotCnt").toString()); // 자전거 주차 총 건수 int로 저장
 			stationId = rowinfo.get("stationId").toString(); // 대여소 ID 저장
 			
-			//
+			
         	//System.out.println(stationId);//rowinfo.get("여기서 설정") 
 		}catch(Exception e) {
 			e.printStackTrace();
