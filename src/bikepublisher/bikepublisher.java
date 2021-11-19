@@ -50,7 +50,7 @@ public class bikepublisher {
 			parkingBikeTotCnt = Integer.parseInt(rowinfo.get("parkingBikeTotCnt").toString()); // 자전거 주차 총 건수 int로 저장
 			stationId = rowinfo.get("stationId").toString(); // 대여소 ID 저장
 			
-			
+			//
         	//System.out.println(stationId);//rowinfo.get("여기서 설정") 
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -79,46 +79,5 @@ public class bikepublisher {
 		
 	}
 	
-/*public static String[] get_TRAIN_data() {
-    	
-	
-    	String url = "http://openapi.seoul.go.kr:8088/"
-    			+ "/6649487853726c613131336750435046" // API key
-    			+ "/json/bikeList/1/1/";//1번부터 5번
-    			
-    	String stationName = ""; //대여소 이름
-    	int parkingBikeTotCnt; //자전거 주차 총 건수
-    	String stationId = ""; //대여소 ID
-    	
-    	Document doc = null;
-		//Jsoup으로 API 데이터 가져오기
-		try {
-			doc = Jsoup.connect(url).get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//System.out.println(doc);
-		
-		Elements elements = doc.select("row");
-		for (Element e : elements) {
-			if (e.select("stationName").text().equals("1")) { //도착지 방면 데이터 가져옴 rownum 1 은 상행 첫번째 열차를 가리킴
-				stationName =  e.select("stationName").text();
-			}
-			if (e.select("rowNum").text().equals("3")) {//도착지 방면 데이터 가져옴 rownum 3 은 하행 첫번째 열차를 가리킴
-				DNtrainLineNm = e.select("trainLineNm").text();
-			}
-			if (e.select("rowNum").text().equals("1")) {//도착 남은시간 데이터 가져옴 rownum 1 은 상행 첫번째 열차를 가리킴
-				UPbravIDt = e.select("barvlDt").text();
-			}
-			if (e.select("rowNum").text().equals("3")) {//도착 남은시간 데이터 가져옴 rownum 3 은 하행 첫번째 열차를 가리킴
-				DNbravIDt = e.select("barvlDt").text();
-			}
-			if (e.select("rowNum").text().equals("1")) {//데이터 생성 시각 가져옴
-				recptnDt = e.select("recptnDt").text();
-			}
-		}
-		String[] out = {UPtrainLineNm, DNtrainLineNm, UPbravIDt, DNbravIDt, recptnDt};
-    	return out;
-    }*/
 
 }
