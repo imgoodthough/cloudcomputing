@@ -34,16 +34,17 @@ public class bikepublisher {
 		String stationName = "";//거치소 이름 저장할 변수
 		int parkingBikeTotCnt; // 자전거 주차 총 건수
 		String stationId = ""; //대여소 ID
-		
-		//저장 현재 시간 만들기
-		Date date = new Date();
-		SimpleDateFormat time= new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		String recordtime = time.format(date); // 현재 시각 저장
-		DBConnect db = new DBConnect();
-		
-		//실시간 api에서 데이터 가져와 파싱 후 출력
 		while(true) {
 			try {
+		//저장 현재 시간 만들기
+				Date date = new Date();
+				SimpleDateFormat time= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+				String recordtime = time.format(date); // 현재 시각 저장
+				DBConnect db = new DBConnect();
+				
+		//실시간 api에서 데이터 가져와 파싱 후 출력
+		
+			
 				URL url = new URL("http://openapi.seoul.go.kr:8088/6649487853726c613131336750435046/json/bikeList/90/90/");
 				BufferedReader bf;
 				bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -61,7 +62,8 @@ public class bikepublisher {
 				
 				db.DBConnct(recordtime, stationName, parkingBikeTotCnt, stationId);
 				
-				Thread.sleep(1800000);//30분에 한번씩 추출
+				Thread.sleep(60000);
+				//Thread.sleep(1800000);//30분에 한번씩 추출
 				
 	        	/*출력문 예시
 	        	 * 
