@@ -18,13 +18,7 @@ public class DBConnect {
 
 	public void DBConnct(String createdate, String stationname, int parkingbiketotcnt, String stationid){
 			
-			if(stationid.equals("ST-73")) {
-				System.out.println(stationid);
-				sql = "INSERT INTO st4(createdate, stationname, parkingbiketotcnt, stationid)" + "VALUES (?, ?, ?, ?)";
-			}else if(stationid.equals("ST-279")) {
-				System.out.println(stationid);
-				sql = "INSERT INTO st279(createdate, stationname, parkingbiketotcnt, stationid)" + "VALUES (?, ?, ?, ?)";
-			}
+			sql = "INSERT INTO bike(createdate, stationname, parkingbiketotcnt, stationid)" + "VALUES (?, ?, ?, ?)";
 			
 			System.out.println(sql);
 			

@@ -43,7 +43,7 @@ public class bikepublisher {
 			try {
 		//저장 현재 시간 만들기
 				Date date = new Date();
-				SimpleDateFormat time= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+				SimpleDateFormat time= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String recordtime = time.format(date); // 현재 시각 저장
 				DBConnect db = new DBConnect();
 				DBConnect db2 = new DBConnect();
@@ -51,40 +51,28 @@ public class bikepublisher {
 		//실시간 api에서 데이터 가져와 파싱 후 출력
 		
 			
-				URL url = new URL("http://openapi.seoul.go.kr:8088/6649487853726c613131336750435046/json/bikeList/90/90/"); //여의나루역 1번출구 앞 따릉이 대여소
-				URL url2 = new URL("http://openapi.seoul.go.kr:8088/6649487853726c613131336750435046/json/bikeList/109/109/"); //양평1 보행육교 따릉이 대여소
+				URL url = new URL("http://openapi.seoul.go.kr:8088/6649487853726c613131336750435046/json/bikeList/85/95/"); //여의나루역 1번출구 앞 따릉이 대여소
+				//URL url2 = new URL("http://openapi.seoul.go.kr:8088/6649487853726c613131336750435046/json/bikeList/109/109/"); //양평1 보행육교 따릉이 대여소
 				BufferedReader bf;
-				BufferedReader bf2;
+				//BufferedReader bf2;
 				
 				bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-				bf2 = new BufferedReader(new InputStreamReader(url2.openStream(), "UTF-8"));
 				
 				result = bf.readLine();
 				JSONParser jsonParser = new JSONParser();
 				JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
 				JSONObject rentBikeStatus = (JSONObject)jsonObject.get("rentBikeStatus");
 				JSONArray row = (JSONArray)rentBikeStatus.get("row");
-				JSONObject rowinfo = (JSONObject)row.get(0); 
+				for(int i = 0; i <= 10; i++) {
+					JSONObject rowinfo = (JSONObject)row.get(i);
+					System.out.println(rowinfo);
+					stationName = rowinfo.get("stationName").toString(); // 대여소 이름 저장
+					parkingBikeTotCnt = Integer.parseInt(rowinfo.get("parkingBikeTotCnt").toString()); // 자전거 주차 총 건수 int로 저장
+					stationId = rowinfo.get("stationId").toString(); // 대여소 ID 저장
+					db.DBConnct(recordtime, stationName, parkingBikeTotCnt, stationId);
+				}
 				
-				stationName = rowinfo.get("stationName").toString(); // 대여소 이름 저장
-				parkingBikeTotCnt = Integer.parseInt(rowinfo.get("parkingBikeTotCnt").toString()); // 자전거 주차 총 건수 int로 저장
-				stationId = rowinfo.get("stationId").toString(); // 대여소 ID 저장
 				
-				
-				result2 = bf2.readLine();
-				JSONParser jsonParser2 = new JSONParser();
-				JSONObject jsonObject2 = (JSONObject)jsonParser2.parse(result2);
-				JSONObject rentBikeStatus2 = (JSONObject)jsonObject2.get("rentBikeStatus");
-				JSONArray row2 = (JSONArray)rentBikeStatus2.get("row");
-				JSONObject rowinfo2 = (JSONObject)row2.get(0); 
-				
-				stationName2 = rowinfo2.get("stationName").toString(); // 대여소 이름 저장
-				parkingBikeTotCnt2 = Integer.parseInt(rowinfo2.get("parkingBikeTotCnt").toString()); // 자전거 주차 총 건수 int로 저장
-				stationId2 = rowinfo2.get("stationId").toString(); // 대여소 ID 저장
-				System.out.println(stationName2 + stationName);
-				
-				db.DBConnct(recordtime, stationName, parkingBikeTotCnt, stationId);
-				db2.DBConnct(recordtime, stationName2, parkingBikeTotCnt2, stationId2);
 				Thread.sleep(60000);
 				//Thread.sleep(1800000);//30분에 한번씩 추출
 				
