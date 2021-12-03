@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <META HTTP-EQUIV="content-type" CONTENT="text/html; CHARSET=utf-8">
+        <style>
+            table {
+            margin: 0 auto;
+            text-align: center;
+            border-collapse: collapse;
+            border: 1px solid #d4d4d4;
+          }
+           
+          tr:nth-child(even) {
+            background: #d4d4d4;
+          }
+           
+          th, td {
+            padding: 10px 30px;
+          }
+           
+          th {
+            border-bottom: 1px solid #d4d4d4;
+          } 
+
+          #searchInput {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-bottom: 20px;
+          }
+
+
+          input {
+            width: 100%;
+            padding: 10px 10px;
+            font-size: 20px;
+            text-align: center;
+          }
+          #searchInput:focus {
+            border-bottom: 2px solid #4575b6;
+          }  
+        </style>
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var fileName = "./bike_forecast_csv/ST-46";// 파일 이름
+                var parseName = "";	
+               
+                
+               
+                 
+                    parseName = fileName  + '.csv';	// 파일 경로 + sequence + 확장자
+            
+                $.ajax({
+                    url:parseName,
+                    dataType:'text',
+                    success: function(data) {
+                        //var allRow = data.split(String.fromCharCode(13));
+                        var allRow = data.split('\n');
+                        //.split(/\r?\n|\r/)
+                        var textLine =  "<table id = \"user\">"+
+                                        "<thead><tr><th>대여소 이름</th><th>고유 값</th><th>시간</th><th>mean</th></tr></thead><tbody id=\"names\">";
+
+                        //console.log(allRow[3]);
+                        for(var singleRow = 0; singleRow < allRow.length; singleRow++) {
+                            
+                            textLine += "<tr>";
+                            var collapse = allRow[singleRow].split(",");
+                            
+                            for(var count = 0; count < collapse.length; count++) {
+                                textLine += "<td>"
+                                textLine += collapse[count];
+                                textLine += "</td>"
+                            }
+
+                            textLine += "</tr>";
+                            
+                            
+                            
+                        }
+                        textLine += "</tbody></table>"
+                        $('body').append(textLine);
+                        $('#textArea').append("<br>");
+                        $('#textArea').append("<br>");
+                        
+                        
+                    }
+                });
+                
+                
+            });
+            
+            </script>
+            <meta charset="EUC-KR">
+        <title>ST-46</title>
+    </head>
+    <body>
+        <br>
+        <input type="text" id="searchInput" placeholder="여기에 시간을 입력하세요.">
+        
+        <div id="textArea"></div>
+
+        <script src="index.js" type="text/javascript"></script>
+    </body>
+</html>
